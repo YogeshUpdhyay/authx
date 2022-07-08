@@ -27,12 +27,12 @@ jobs:
       fail-fast: false
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
       - name: Set up Python
-        uses: actions/setup-python@v2
+        uses: actions/setup-python@v4
         with:
           python-version: ${{ matrix.python-version }}
-      - uses: actions/cache@v2
+      - uses: actions/cache@v3
         id: cache
         with:
           path: ${{ env.pythonLocation }}
@@ -45,11 +45,11 @@ jobs:
         run: flit install --symlink
       - name: Lint
         if: ${{ matrix.python-version != '3.9' }}
-        run: pre-commit run --all-files
+        run: pre-commit run --all-files --verbose --show-diff-on-failure
       - name: Test
         env:
           ENV: test
           REDIS_URL: "redis://0.0.0.0:6379"
         run: bash scripts/test.sh
       - name: Upload coverage
-        uses: codecov/codecov-action@v1
+        uses: codecov/codecov-action@v3
