@@ -1,4 +1,4 @@
-from typing import Iterable, Optional, Union
+from typing import Iterable, Optional, Tuple, Union
 from uuid import UUID
 
 
@@ -36,5 +36,5 @@ class BaseDBBackend:
     async def get_blacklist(self) -> Iterable[dict]:
         raise NotImplementedError()
 
-    async def search(self, f: dict, p: int, size: int) -> tuple[dict, int]:
+    async def search(self, f: dict, p: int, size: int) -> Tuple[dict, int]:
         raise NotImplementedError()

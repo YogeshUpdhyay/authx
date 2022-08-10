@@ -13,8 +13,11 @@ from authx.database import BaseDBBackend
 class MongoDBBackend(BaseDBBackend):
     """Setup Database for authx using MongoDB & Motor"""
 
-    def __init__(self, database_name: str = "test") -> None:
+    def __init__(
+        self, database_name: str = "test", client: AsyncIOMotorClient = None
+    ) -> None:
         self._database_name = database_name
+        self._client = client
 
     def set_client(self, client: AsyncIOMotorClient) -> None:
         self._client = client

@@ -1,4 +1,4 @@
-from typing import Iterable, Optional
+from typing import Iterable, Optional, Tuple
 from uuid import UUID, uuid4
 
 import sqlalchemy as sa
@@ -107,7 +107,7 @@ class EncodeDBBackend(BaseDBBackend):
         query = sa.select(self.users).where(self.users.c.active == False)
         return await self.database.fetch_all(query)
 
-    async def search(self, f: dict, p: int, size: int) -> tuple[dict, int]:
+    async def search(self, f: dict, p: int, size: int) -> Tuple[dict, int]:
         count = self.count(f)
         # TODO: FIX Query is ignored
         query = sa.select(self.users).offset((p - 1) * size).limit(size)
